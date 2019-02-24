@@ -1,5 +1,4 @@
 import math
-
 import data
 
 def dot_kf(u, v):
