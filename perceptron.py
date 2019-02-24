@@ -138,6 +138,19 @@ if __name__ == '__main__':
             L.append(float(loss)/1000)
             loss = 0
         print L
+    
+    def polyKernel2(d):
+        L = []
+        loss = 0
+        train = Perceptron(poly_kernel(d),test_data,test_labs)
+        for i in range(0,len(test_data)):
+            if train.update(test_data[i],test_labs[i]): #if theres an update
+                train.Mistakesx.append(test_data[i])
+                train.Mistakesy.append(test_labs[i])
+                loss = loss + 1
+            if ((i+1)%100 ==0):
+                L.append(float(loss)/(i+1))    
+        print L
 
     def expKernel(d):
         train = Perceptron(exp_kernel(d),test_data,test_labs)
@@ -145,8 +158,8 @@ if __name__ == '__main__':
         loss = 0
         for i in range(0,len(test_data)):
             if train.update(test_data[i],test_labs[i]): #if theres an update
-                train.Mistakesx.append( val_data[i])
-                train.Mistakesy.append(val_labs[i])
+                train.Mistakesx.append(test_data[i])
+                train.Mistakesy.append(test_labs[i])
                 loss = loss + 1
             if ((i+1)%100 ==0):
                 L.append(float(loss)/(i+1))
@@ -154,5 +167,5 @@ if __name__ == '__main__':
 
     simpleKernel()
     polyKernel()
-    expKernel(5)
+    polyKernel2(5)
     expKernel(10)
